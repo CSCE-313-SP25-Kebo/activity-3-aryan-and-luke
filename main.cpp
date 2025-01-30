@@ -40,7 +40,10 @@ int main(int argc, char *argv[])
             sleep(6);
             /* TODO: EXECUTE THE COMMAND ls -l USING EXECVP*/
             const char * c = "ls";
-            constexpr char * args[] = {"ls", "-l", NULL};
+            char * args[3];
+            args[0] = "ls";
+            args[1] = "-l";
+            args[2] = NULL;
             execvp(c, args);
         }
         else // if the option number is odd, terminate with a kill signal
@@ -51,7 +54,7 @@ int main(int argc, char *argv[])
     }
     else if (p > 0 /*TODO: CONDITION IF PARENT PROCESS*/)
     {
-        // int status;
+        int status;
 
         /* TODO: WAIT FOR CHILD PROCESS TO FINISH */
         wait(nullptr);
@@ -66,11 +69,10 @@ int main(int argc, char *argv[])
         IF WIFEXITED, PRINT THE MESSAGE "The child process exited normally" WITH ENDLINE
         IF WIFSIGNALED, PRINT THE MESSAGE "The child process exited due to the kill signal" WITH ENDLINE
         */
-        int* s = nullptr;
-        waitpid(p, s, 0);
-        if (WIFEXITED(*s)) {
+        waitpid(p, &status, 0);
+        if (WIFEXITED(status)) {
             cout << "The child process exited normally" << endl;
-        } else if (WIFSIGNALED(*s)) {
+        } else if (WIFSIGNALED(status)) {
             cout << "The child process exited due to the kill signal" << endl;
         }
     }
