@@ -40,10 +40,8 @@ int main(int argc, char *argv[])
             sleep(6);
             /* TODO: EXECUTE THE COMMAND ls -l USING EXECVP*/
             const char * c = "ls";
-            char * args[3];
-            args[0] = "ls";
-            args[1] = "-l";
-            args[2] = NULL;
+            const char * f = "-l";
+            char * const args[] = {const_cast<char *>(c) ,const_cast<char *>(f), NULL};
             execvp(c, args);
         }
         else // if the option number is odd, terminate with a kill signal
@@ -62,7 +60,7 @@ int main(int argc, char *argv[])
         cout << "\nHello from the parent process!" << endl;
 
         /* TODO: PRINT THE CHILD PID value: "The child process ID is $ID" */
-        cout << p;
+        cout << p << endl;
 
         /* TODO: PRINT THE EXIT STATUS OF THE CHILD PROCESS BASED waitpid().
         MAKE SURE TO PASS BY REFERENCE THE STATUS VARIABLE TO THE SECOND PARAMETER OF waitpid()
